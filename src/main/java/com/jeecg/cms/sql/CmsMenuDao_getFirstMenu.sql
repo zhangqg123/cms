@@ -1,0 +1,8 @@
+SELECT 
+	* 
+FROM
+	cms_menu AS cm 
+WHERE 
+cm.PARENT_CODE = '' OR cm.PARENT_CODE IS NULL
+ORDER BY 
+	if(isnull(cm.SERIAL_NUMBER),1,0),cm.SERIAL_NUMBER;

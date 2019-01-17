@@ -1,0 +1,27 @@
+INSERT  INTO
+	cms_ad
+      ( 
+      id                            
+      ,create_name                    
+      ,create_by                      
+      ,create_date                    
+      ,title                          
+      ,image_href      
+      ,is_show                        
+      ,resume                         
+      ,link 
+      ,sort
+      ) 
+values
+      (
+      :cmsAd.id                            
+      ,:cmsAd.createName                    
+      ,:cmsAd.createBy                      
+      ,:cmsAd.createDate                    
+      ,:cmsAd.title                         
+      ,:cmsAd.imageHref
+      ,:cmsAd.isShow                        
+      ,:cmsAd.resume                        
+      ,:cmsAd.link 
+      ,:cmsAd.sort
+      )
