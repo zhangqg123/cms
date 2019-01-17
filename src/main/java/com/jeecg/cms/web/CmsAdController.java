@@ -22,7 +22,7 @@ import com.jeecg.cms.entity.CmsAd;
 
  /**
  * 描述：</b>CmsAdController<br>
- * @author p3.jeecg
+ * @author zhangqg
  * @since：2016年06月13日 15时00分28秒 星期一 
  * @version:1.0
  */
