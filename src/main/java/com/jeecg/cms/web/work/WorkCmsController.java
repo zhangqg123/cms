@@ -111,11 +111,12 @@ public class WorkCmsController extends BaseController {
 	 * URL: http://localhost/jeecg-p3-web/api/cms/queryOneArticles.do?articlesId=4A15730AC99A408D8CEB4142C7831BC5
 	 */
 	@RequestMapping("/queryOneArticles")
-	public @ResponseBody AjaxJson queryOneArticles(String articlesId) {
+	public @ResponseBody AjaxJson queryOneArticles(HttpServletRequest request, HttpServletResponse response) {
 		AjaxJson j = new AjaxJson();
+		String articleId = request.getParameter("articleId");
 		try {
-			if(oConvertUtils.isNotEmpty(articlesId)) {
-				CmsArticle cmsArticle = cmsArticleDao.get(articlesId);
+			if(oConvertUtils.isNotEmpty(articleId)) {
+				CmsArticle cmsArticle = cmsArticleDao.get(articleId);
 				j.setObj(cmsArticle);
 				j.setSuccess(true);
 			}
