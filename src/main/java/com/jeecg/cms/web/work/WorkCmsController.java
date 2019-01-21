@@ -105,6 +105,17 @@ public class WorkCmsController extends BaseController {
 			return j;
 		}
 	}
+	@RequestMapping(value="/articleList")
+	public @ResponseBody String articleList(@ModelAttribute CmsArticle query, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(required = false, value = "pageNumber", defaultValue = "1") int pageNo,
+			@RequestParam(required = false, value = "pageSize", defaultValue = "6") int pageSize) throws Exception {
+			//分页数据
+		if(query.getColumnId().equals("all")){
+			query.setColumnId(null);
+		}
+		MiniDaoPage<CmsArticle> list =  cmsArticleDao.getAll(query, pageNo, pageSize);
+		return JSONArray.toJSONString(list.getResults()).toString();
+	}
 
 	/**
 	 * 根据ID返回文章数据
