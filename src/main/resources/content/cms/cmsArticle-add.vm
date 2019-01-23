@@ -32,7 +32,7 @@
 						<div class="form-group mno">
 							<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">栏目</label>
 							<div class="col-sm-8">
-								<input type="text" value="" id="columnId" readonly class="form-control" onclick="showMenu();"/>
+								<input type="text" value="" id="columnId" readonly class="form-control" onclick="showMenu();" datatype="*"/>
 								<input type="hidden" name="columnId" id="pId" />
 							</div>
 						</div>

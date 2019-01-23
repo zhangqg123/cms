@@ -54,38 +54,40 @@
 								<tbody>
 									#if($!{pageInfos})
 										#foreach($!{info} in $!{pageInfos})
-											#foreach($!{menuInfo} in $!{menuList})
-												#if($!{menuInfo.id} == $!{info.columnId})
-        											<tr>			
-                                                        <td>$!{info.title}</td>
-                                                        <td>
-        													#if ($info.imageHref)
-        														<img src="$!{basePath}/upload/img/cms/$!{info.imageHref}" width="50px" height="50px"/>
-        													#end
-        												</td>
-        												<td id="$!{info.columnId}">$!{menuInfo.name}</td>
-                                                        <td>
-        													#if($!info.publish=='Y')
-        														是
-        														#elseif($!info.publish=='N')
-        															否
-        													#end
-        												</td>
-                                                        <td>$!dateTool.format("yyyy-MM-dd",$!{info.publishDate})</td>
-        												<td>$!{info.serialNumber}</td>
-        												<td class="last">
-        													<a href="javascript:doUrl('$!{basePath}/p3/cms/cmsArticle.do?toEdit&id=$!{info.id}')" >编辑</a>
-        													<a href="javascript:delData('$!{basePath}/p3/cms/cmsArticle.do?doDelete&id=$!{info.id}')">删除</a>
-        													#if($!info.publish=='Y')
-        														<a href="javascript:void(0)" onclick="doUpdatePublish('$!{info.id}','N')">取消发布</a>
-        													#else
-        														<a href="javascript:void(0)" onclick="doUpdatePublish('$!{info.id}','Y')">发布</a>
-        													#end
-        													##<a href="javascript:void(0)" onclick="openArticleInfo('$!{info.code}')">获取文章访问地址</a>
-        												</td>
-        											</tr>
-												#end
-											#end
+											<tr>			
+                                                <td>$!{info.title}</td>
+                                                <td>
+													#if ($info.imageHref)
+														<img src="$!{basePath}/upload/img/cms/$!{info.imageHref}" width="50px" height="50px"/>
+													#end
+												</td>
+												<td>
+													 #foreach($column in $menuList)
+														#if($!{info.columnId} == ${column.id})
+															$!{column.name}
+														#end
+													 #end
+												</td>
+                                                <td>
+													#if($!info.publish=='Y')
+														是
+														#elseif($!info.publish=='N')
+															否
+													#end
+												</td>
+                                                <td>$!dateTool.format("yyyy-MM-dd",$!{info.publishDate})</td>
+												<td>$!{info.serialNumber}</td>
+												<td class="last">
+													<a href="javascript:doUrl('$!{basePath}/p3/cms/cmsArticle.do?toEdit&id=$!{info.id}')" >编辑</a>
+													<a href="javascript:delData('$!{basePath}/p3/cms/cmsArticle.do?doDelete&id=$!{info.id}')">删除</a>
+													#if($!info.publish=='Y')
+														<a href="javascript:void(0)" onclick="doUpdatePublish('$!{info.id}','N')">取消发布</a>
+													#else
+														<a href="javascript:void(0)" onclick="doUpdatePublish('$!{info.id}','Y')">发布</a>
+													#end
+													##<a href="javascript:void(0)" onclick="openArticleInfo('$!{info.code}')">获取文章访问地址</a>
+												</td>
+											</tr>
 										#end
 									#end
 								</tobody>
