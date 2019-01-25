@@ -54,6 +54,11 @@ public class CmsArticleController extends BaseController{
 			try {
 			 	LOG.info(request, " back list");
 			 	//分页数据
+				String rolecodes=(String) request.getSession().getAttribute("rolecodes");
+				String userName=(String) request.getSession().getAttribute("loginUserName");
+				if(rolecodes.contains("exam")){
+					query.setCreateBy(userName);
+				}
 				MiniDaoPage<CmsArticle> list =  cmsArticleDao.getAll(query,pageNo,pageSize);
 				VelocityContext velocityContext = new VelocityContext();
 				velocityContext.put("cmsArticle",query);
@@ -105,9 +110,11 @@ public class CmsArticleController extends BaseController{
 	 */
 	@RequestMapping(params = "doAdd",method ={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public AjaxJson doAdd(@ModelAttribute CmsArticle cmsArticle){
+	public AjaxJson doAdd(HttpServletRequest request,@ModelAttribute CmsArticle cmsArticle){
 		AjaxJson j = new AjaxJson();
 		try {
+			String userName=(String) request.getSession().getAttribute("loginUserName");		
+			cmsArticle.setCreateBy(userName);
 		    String randomSeed = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
 		    cmsArticle.setId(randomSeed);
 
@@ -150,9 +157,13 @@ public class CmsArticleController extends BaseController{
 	 */
 	@RequestMapping(params = "doEdit",method ={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public AjaxJson doEdit(@ModelAttribute CmsArticle cmsArticle){
+	public AjaxJson doEdit(HttpServletRequest request,@ModelAttribute CmsArticle cmsArticle){
 		AjaxJson j = new AjaxJson();
 		try {
+			if(cmsArticle.getCreateBy()==null||cmsArticle.getCreateBy()==""){
+				String userName=(String) request.getSession().getAttribute("loginUserName");
+				cmsArticle.setCreateBy(userName);
+			}
 			cmsArticleDao.update(cmsArticle);
 			j.setMsg("编辑成功");
 		} catch (Exception e) {
