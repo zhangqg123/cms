@@ -28,6 +28,7 @@ import com.jeecg.cms.entity.CmsAd;
 import com.jeecg.cms.entity.CmsArticle;
 import com.jeecg.cms.entity.CmsMenu;
 import com.jeecg.cms.entity.CmsSite;
+import com.jeecg.cms.entity.LhSAccountEntity;
 
 /**
  * CMS API
@@ -57,10 +58,11 @@ public class WorkCmsController extends BaseController {
 	@RequestMapping(value="/menu")
 	public @ResponseBody String menu(@ModelAttribute CmsMenu query, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String pid = query.getParentCode();
-		MiniDaoPage<CmsMenu> list = cmsMenuDao.getFirstMenu();
+		String appId=request.getParameter("xcxId");
+		LhSAccountEntity lhSAccount=cmsMenuDao.getByAppId(appId);
+		List<CmsMenu> list = cmsMenuDao.getFirstMenuByUser(lhSAccount.getUserId());
 		// 分页数据
-		List<?> resut = list.getResults();
-		return JSONArray.toJSONString(resut);
+		return JSONArray.toJSONString(list);
 	}
 	
 	

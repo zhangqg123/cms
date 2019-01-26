@@ -9,6 +9,7 @@ import org.jeecgframework.minidao.pojo.MiniDaoPage;
 import org.springframework.stereotype.Repository;
 
 import com.jeecg.cms.entity.CmsMenu;
+import com.jeecg.cms.entity.LhSAccountEntity;
 
 /**
  * 描述：</b>CmsMenuDao<br>
@@ -72,5 +73,11 @@ public interface CmsMenuDao{
 	 */
 	@Sql("SELECT * FROM cms_menu AS cm where cm.PARENT_CODE = :id ORDER BY if(isnull(cm.SERIAL_NUMBER),1,0),cm.SERIAL_NUMBER;")
 	public List<CmsMenu> getChildNode(@Param("id")String id);
+
+	@Sql("SELECT * FROM cms_menu AS cm where cm.CREATE_BY = :userId and (cm.PARENT_CODE = '' OR cm.PARENT_CODE IS NULL) order by if(isnull(cm.SERIAL_NUMBER),1,0),cm.SERIAL_NUMBER ")
+	public List<CmsMenu> getFirstMenuByUser(@Param("userId") String userId);
+	
+	@Sql("SELECT * FROM lh_s_account WHERE app_id = :appId")
+	LhSAccountEntity getByAppId(@Param("appId") String appId);
 }
 

@@ -47,6 +47,11 @@ public class CmsMenuController extends BaseController{
 		try {
 		 	LOG.info(request, " back list");
 		 	//分页数据
+			String rolecodes=(String) request.getSession().getAttribute("rolecodes");
+			String userName=(String) request.getSession().getAttribute("loginUserName");
+			if(rolecodes.contains("exam")){
+				query.setCreateBy(userName);
+			}
 			MiniDaoPage<CmsMenu> list =  cmsMenuDao.getAll(query,pageNo,pageSize);
 			VelocityContext velocityContext = new VelocityContext();
 			velocityContext.put("cmsMenu",query);
@@ -90,7 +95,7 @@ public class CmsMenuController extends BaseController{
 	 */
 	@RequestMapping(params = "doAdd",method ={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public AjaxJson doAdd(@ModelAttribute CmsMenu cmsMenu){
+	public AjaxJson doAdd(HttpServletRequest request,@ModelAttribute CmsMenu cmsMenu){
 		AjaxJson j = new AjaxJson();
 		try {
 		    if (StringUtil.isEmpty(cmsMenu.getParentCode())) {//无上级
@@ -99,6 +104,8 @@ public class CmsMenuController extends BaseController{
 			}else{//有上级
 				cmsMenu.setId(new SimpleTreeIdBuild().getId(this.cmsMenuDao,cmsMenu.getParentCode()));
 			}
+			String userName=(String) request.getSession().getAttribute("loginUserName");
+			cmsMenu.setCreateBy(userName);
 			cmsMenuDao.insert(cmsMenu);
 			j.setMsg("保存成功");
 		} catch (Exception e) {
@@ -130,9 +137,13 @@ public class CmsMenuController extends BaseController{
 	 */
 	@RequestMapping(params = "doEdit",method ={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public AjaxJson doEdit(@ModelAttribute CmsMenu cmsMenu){
+	public AjaxJson doEdit(HttpServletRequest request,@ModelAttribute CmsMenu cmsMenu){
 		AjaxJson j = new AjaxJson();
 		try {
+			if(cmsMenu.getCreateBy()==null||cmsMenu.getCreateBy()==""){
+				String userName=(String) request.getSession().getAttribute("loginUserName");
+				cmsMenu.setCreateBy(userName);
+			}
 			cmsMenuDao.update(cmsMenu);
 			j.setMsg("编辑成功");
 		} catch (Exception e) {
