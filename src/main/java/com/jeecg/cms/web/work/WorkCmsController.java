@@ -28,7 +28,8 @@ import com.jeecg.cms.entity.CmsAd;
 import com.jeecg.cms.entity.CmsArticle;
 import com.jeecg.cms.entity.CmsMenu;
 import com.jeecg.cms.entity.CmsSite;
-import com.jeecg.cms.entity.LhSAccountEntity;
+import com.jeecg.lhs.account.entity.LhSAccountEntity;
+import com.jeecg.lhs.account.service.LhSAccountService;
 
 /**
  * CMS API
@@ -48,6 +49,8 @@ public class WorkCmsController extends BaseController {
 	private CmsAdDao cmsAdDao;
 	@Autowired
 	private CmsSiteDao cmsSiteDao;
+	@Autowired
+	private LhSAccountService lhSAccountService;
 	
 	/**
 	 * 返回栏目数据
@@ -59,7 +62,7 @@ public class WorkCmsController extends BaseController {
 	public @ResponseBody String menu(@ModelAttribute CmsMenu query, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String pid = query.getParentCode();
 		String appId=request.getParameter("xcxId");
-		LhSAccountEntity lhSAccount=cmsMenuDao.getByAppId(appId);
+		LhSAccountEntity lhSAccount = lhSAccountService.getByAppId(appId);
 		List<CmsMenu> list = cmsMenuDao.getFirstMenuByUser(lhSAccount.getUserId());
 		// 分页数据
 		return JSONArray.toJSONString(list);
