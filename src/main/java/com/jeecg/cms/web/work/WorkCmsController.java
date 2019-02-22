@@ -28,8 +28,8 @@ import com.jeecg.cms.entity.CmsAd;
 import com.jeecg.cms.entity.CmsArticle;
 import com.jeecg.cms.entity.CmsMenu;
 import com.jeecg.cms.entity.CmsSite;
-import com.jeecg.lhs.account.entity.LhSAccountEntity;
-import com.jeecg.lhs.account.service.LhSAccountService;
+import com.jeecg.lhs.entity.LhSAccountEntity;
+import com.jeecg.lhs.service.LhSAccountService;
 
 /**
  * CMS API

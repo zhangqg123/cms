@@ -9,7 +9,7 @@ import org.jeecgframework.minidao.pojo.MiniDaoPage;
 import org.springframework.stereotype.Repository;
 
 import com.jeecg.cms.entity.CmsMenu;
-import com.jeecg.lhs.account.entity.LhSAccountEntity;
+import com.jeecg.lhs.entity.LhSAccountEntity;
 /**
  * 描述：</b>CmsMenuDao<br>
  * @author：p3.jeecg
