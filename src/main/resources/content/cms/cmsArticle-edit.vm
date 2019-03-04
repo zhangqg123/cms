@@ -117,12 +117,13 @@
 						<div class="form-group mno" id="contentDiv">
 							<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">内容</label>
 							<div class="col-sm-8">
-								<textarea name="content" id="content" style="width: 880px;height:300px">$!{cmsArticle.content}</textarea>
+								<textarea name="content" id="content" style="height:300px">$!{cmsArticle.content}</textarea>
 							    <script type="text/javascript">
-							        var editor = UE.getEditor('content',{
-									 	'enterTag':'br',
-										toolbars:[["source","|","bold","italic","underline","|","customstyle", "paragraph","fontfamily", "fontsize","justifyleft","justifycenter","justifyright","justifyjustify","|","insertorderedlist","insertunorderedlist","|","insertimage","|",'removeformat','forecolor','backcolor',"insertvideo","fullscreen"]]
-									});
+							        var editor = UE.getEditor('content');
+//									var editor = UE.getEditor('content',{
+//									 	'enterTag':'br',
+//										toolbars:[["source","|","bold","italic","underline","|","customstyle", "paragraph","fontfamily", "fontsize","justifyleft","justifycenter","justifyright","justifyjustify","|","insertorderedlist","insertunorderedlist","|","insertimage","|",'removeformat','forecolor','backcolor',"insertvideo","fullscreen"]]
+//									});
 							    </script>
 							</div>
 						</div>
