@@ -62,3 +62,8 @@
 		    /* 是否在明细页面显示*/
 			and ca.is_show = :cmsArticle.isShow
 		</#if>
+		<#if (cmsArticle.deptId)?? && cmsArticle.deptId ?length gt 0>
+		    /* 栏目id */
+			and ca.dept_id like CONCAT('%', :cmsArticle.deptId ,'%') 
+		</#if>
+		

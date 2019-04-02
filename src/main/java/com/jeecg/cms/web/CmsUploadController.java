@@ -26,7 +26,7 @@ import com.jeecg.cms.util.ContextHolderUtils;
 @RequestMapping("/p3/cms/upload")
 public class CmsUploadController extends BaseController{
   
-  @RequestMapping(value = "doUpload",method ={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value = "doUpload",method ={RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
 	public AjaxJson doUpload(MultipartHttpServletRequest request,HttpServletResponse response){
 		AjaxJson j = new AjaxJson();

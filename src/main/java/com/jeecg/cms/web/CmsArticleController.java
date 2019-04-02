@@ -2,6 +2,7 @@ package com.jeecg.cms.web;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -27,6 +28,8 @@ import com.jeecg.cms.dao.CmsArticleDao;
 import com.jeecg.cms.dao.CmsMenuDao;
 import com.jeecg.cms.entity.CmsArticle;
 import com.jeecg.cms.entity.CmsMenu;
+import com.jeecg.lhs.entity.LhSDeptEntity;
+import com.jeecg.lhs.service.LhSDeptService;
 
  /**
  * 描述：</b>CmsArticleController<br>
@@ -42,6 +45,8 @@ public class CmsArticleController extends BaseController{
   
   @Autowired
   private CmsMenuDao cmsMenuDao;
+  @Autowired
+  private LhSDeptService lhSDeptService;
   
 	/**
 	  * 列表页面
@@ -97,9 +102,13 @@ public class CmsArticleController extends BaseController{
 	 */
 	@RequestMapping(params = "toAdd",method ={RequestMethod.GET, RequestMethod.POST})
 	public void toAddDialog(HttpServletRequest request,HttpServletResponse response)throws Exception{
+		LhSDeptEntity lhSDept=new LhSDeptEntity();
+		MiniDaoPage<LhSDeptEntity> list = lhSDeptService.getAll(lhSDept, 1, 200); 
+		List<LhSDeptEntity> lhSDeptList = list.getResults();
 		VelocityContext velocityContext = new VelocityContext();
 		String sessionid = request.getSession().getId();
 		velocityContext.put("sessionid", sessionid);
+		velocityContext.put("deptList",lhSDeptList);
 		String viewName = "cms/cmsArticle-add.vm";
 		ViewVelocity.view(request,response,viewName,velocityContext);
 	}
@@ -125,7 +134,10 @@ public class CmsArticleController extends BaseController{
 		    if(oConvertUtils.isEmpty(cmsArticle.getSummary())) {
 		    	cmsArticle.setSummary("");
 		    }
-
+		    if(oConvertUtils.isEmpty(cmsArticle.getImageHref())) {
+		    	cmsArticle.setImageHref("lesson.jpg");
+		    }
+		    
 			cmsArticleDao.insert(cmsArticle);
 			j.setMsg("保存成功");
 		} catch (Exception e) {
@@ -142,11 +154,15 @@ public class CmsArticleController extends BaseController{
 	 */
 	@RequestMapping(params="toEdit",method = RequestMethod.GET)
 	public void toEdit(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request) throws Exception{
+		LhSDeptEntity lhSDept=new LhSDeptEntity();
+		MiniDaoPage<LhSDeptEntity> list = lhSDeptService.getAll(lhSDept, 1, 200); 
+		List<LhSDeptEntity> lhSDeptList = list.getResults();
 		VelocityContext velocityContext = new VelocityContext();
 		CmsArticle cmsArticle = cmsArticleDao.get(id);
 		velocityContext.put("cmsArticle",cmsArticle);
 		String sessionid = request.getSession().getId();
 		velocityContext.put("sessionid", sessionid);
+		velocityContext.put("deptList",lhSDeptList);
 		String viewName = "cms/cmsArticle-edit.vm";
 		ViewVelocity.view(request,response,viewName,velocityContext);
 	}

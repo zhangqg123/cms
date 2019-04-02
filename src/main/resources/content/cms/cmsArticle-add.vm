@@ -4,7 +4,7 @@
 #parse("content/base/back/common/head.vm")
 <!--UEditor-->
 <script type="text/javascript"  charset="utf-8" src="$!{basePath}/plug-in/ueditor/ueditor.config.js"></script>
-<script type="text/javascript"  charset="utf-8" src="$!{basePath}/plug-in/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript"  charset="utf-8" src="$!{basePath}/plug-in/ueditor/ueditor.all.js"></script>
 <script type="text/javascript" charset="utf-8" src="$!{basePath}/plug-in/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" charset="utf-8" src="$!{basePath}/plug-in/ueditor/kityformula-plugin/addKityFormulaDialog.js"></script>
 <script type="text/javascript" charset="utf-8" src="$!{basePath}/plug-in/ueditor/kityformula-plugin/getKfContent.js"></script>
@@ -51,6 +51,17 @@
 								<input type="text" value="$!dateTool.format("yyyy-MM-dd",$!{cmsArticle.publishDate})" name="publishDate" id="publishDate" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"   style="background: url('$!{basePath}/plug-in-ui/images/datetime.png') no-repeat scroll right center transparent;" datatype="*"/>
 							</div>
 						</div> -->
+						<div class="form-group mno">
+							<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">发布范围</label>
+							<div class="col-sm-8">
+                                <select name="deptId" id="deptId" class="form-control">
+                                    <option value="">--请选择--</option>
+									#foreach($!{dept} in $!{deptList})
+                                        <option value="$!{dept.id}" >$!{dept.deptName}</option>
+									#end
+								</select>
+							</div>
+						</div>
 						
 						<div class="form-group mno" style="display:none">
 							<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">作者</label>

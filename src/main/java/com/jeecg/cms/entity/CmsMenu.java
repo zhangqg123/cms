@@ -14,7 +14,13 @@ import java.util.Date;
  */
 public class CmsMenu implements Serializable{
 	private static final long serialVersionUID = 1L;
-		/**	 *ID	 */	private String id;	/**	 *CREATE_BY	 */	private String createBy;	/**	 *CREATE_DATE	 */	private Date createDate;	/**	 *CREATE_NAME	 */	private String createName;	/**	 *IMAGE_HREF	 */	private String imageHref;	/**	 *IMAGE_NAME	 */	private String imageName;	/**	 *NAME	 */	private String name;
+		/**	 *ID	 */	private String id;	/**	 *CREATE_BY	 */	private String createBy;	/**	 *CREATE_DATE	 */	private Date createDate;	/**	 *CREATE_NAME	 */	private String createName;	/**	 *IMAGE_HREF	 */	private String imageHref;	/**	 *IMAGE_NAME	 */	private String imageName;
+	
+	/**
+	 *APP_OWNER
+	 */	
+	private String appOwner;
+	/**	 *NAME	 */	private String name;
 
 	/**
 	 *模版样式
@@ -50,6 +56,12 @@ public class CmsMenu implements Serializable{
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getAppOwner() {
+		return appOwner;
+	}
+	public void setAppOwner(String appOwner) {
+		this.appOwner = appOwner;
 	}
 
 	

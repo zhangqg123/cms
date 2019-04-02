@@ -23,6 +23,7 @@
 									<th>类型</th>
 									<th>链接</th>
 									<th>序号</th>
+									<th>所有者</th>
 									<th>操作</th>
 								</thead>
 								<tbody>
@@ -44,6 +45,7 @@
 												</td>
 												<td >$!{info.href}</td>
 												<td>$!{info.serialNumber}</td>
+												<td>$!{info.appOwner}</td>
 												<td class="last">
 													<a href="javascript:doUrl('$!{basePath}/p3/cms/cmsMenu.do?toEdit&id=$!{info.id}')" >编辑</a>
 													<a href="javascript:delData('$!{basePath}/p3/cms/cmsMenu.do?doDelete&id=$!{info.id}')">删除</a>

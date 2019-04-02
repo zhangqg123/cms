@@ -33,6 +33,9 @@ SET
 		<#if cmsMenu.serialNumber ?exists>
 		   SERIAL_NUMBER = :cmsMenu.serialNumber,
 		</#if>
+		<#if cmsMenu.appOwner ?exists>
+		   APP_OWNER = :cmsMenu.appOwner,
+		</#if>
 		<#if cmsMenu.content ?exists>
 		   content = :cmsMenu.content,
 		</#if>

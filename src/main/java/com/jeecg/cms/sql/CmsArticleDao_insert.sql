@@ -19,6 +19,7 @@ INSERT  INTO
       ,is_link                        
       ,link
       ,is_show
+      ,dept_id
       ) 
 values
       (
@@ -40,4 +41,5 @@ values
       ,:cmsArticle.isLink                        
       ,:cmsArticle.link
       ,:cmsArticle.isShow
+      ,:cmsArticle.deptId
       )

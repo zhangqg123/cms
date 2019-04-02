@@ -51,4 +51,7 @@ SET
 		<#if cmsArticle.isShow ?exists>
 		   is_show = :cmsArticle.isShow,
 		</#if>
+		<#if cmsArticle.deptId ?exists>
+		   dept_id = :cmsArticle.deptId,
+		</#if>
 WHERE id = :cmsArticle.id
