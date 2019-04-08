@@ -68,6 +68,15 @@ public class WorkCmsController extends BaseController {
 		return JSONArray.toJSONString(list);
 	}
 	
+	@RequestMapping(value="/lstMenu")
+	public @ResponseBody String lstMenu(@ModelAttribute CmsMenu query, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String pid = query.getParentCode();
+		String xcxId=request.getParameter("xcxId");
+//		LhSAccountEntity lhSAccount = lhSAccountService.getByAppId(appId);
+		List<CmsMenu> list = cmsMenuDao.getFirstMenuByAppOwner(xcxId);
+		// 分页数据
+		return JSONArray.toJSONString(list);
+	}
 	
 	/**
 	 * 返回文章数据
