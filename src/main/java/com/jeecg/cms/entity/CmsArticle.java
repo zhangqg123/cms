@@ -14,7 +14,8 @@ import java.util.Date;
  */
 public class CmsArticle implements Serializable{
 	private static final long serialVersionUID = 1L;
-		/**	 *id	 */	private String id;	/**	 *标题	 */	private String title;	/**	 *图片地址	 */	private String imageHref;	/**	 *summary	 */	private String summary;	/**	 *内容	 */	private String content;	/**	 *栏目id	 */	private String columnId;	/**	 *创建人	 */	private String createName;	/**	 *创建人id	 */	private String createBy;	/**	 *创建日期	 */	private Date createDate;	/**	 *publish	 */	private String publish;	/**	 *PUBLISH_DATE	 */	private Date publishDate;	/**	 *AUTHOR	 */	private String author;
+		/**	 *id	 */	private String id;	/**	 *标题	 */	private String title;	/**	 *图片地址	 */	private String imageHref;	/**	 *summary	 */	private String summary;	/**	 *内容	 */	private String content;	/**	 *栏目id	 */	private String columnId;
+	private String columnIds;	/**	 *创建人	 */	private String createName;	/**	 *创建人id	 */	private String createBy;	/**	 *创建日期	 */	private Date createDate;	/**	 *publish	 */	private String publish;	/**	 *PUBLISH_DATE	 */	private Date publishDate;	/**	 *AUTHOR	 */	private String author;
 
 	private Integer serialNumber;	public Integer getSerialNumber() {
 		return serialNumber;
@@ -72,6 +73,12 @@ public class CmsArticle implements Serializable{
 	}
 	public void setDeptId(String deptId) {
 		this.deptId = deptId;
+	}
+	public String getColumnIds() {
+		return columnIds;
+	}
+	public void setColumnIds(String columnIds) {
+		this.columnIds = columnIds;
 	}
 	}
 

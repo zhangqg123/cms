@@ -73,6 +73,9 @@ public interface CmsArticleDao {
 	 */
 	@ResultType(CmsArticle.class)
 	public MiniDaoPage<CmsArticle> getPagesAllMenu(@Param("coulmnId") String coulmnId,@Param("page") int page,@Param("rows") int rows);
+	
+	@ResultType(CmsArticle.class)
+	public MiniDaoPage<CmsArticle> getPagesSelectMenu(@Param("cmsArticle") CmsArticle cmsArticle,@Param("page") int page,@Param("rows") int rows);
 
 	@Sql("SELECT count(*) FROM cms_article where column_id = :columnId")
 	public Integer getArticleCountByColumnId(@Param("columnId") String columnId);

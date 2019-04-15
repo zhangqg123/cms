@@ -31,6 +31,7 @@ import com.jeecg.cms.entity.CmsSite;
 import com.jeecg.lhs.entity.LhSAccountEntity;
 import com.jeecg.lhs.service.LhSAccountService;
 
+
 /**
  * CMS API
  * 
@@ -125,11 +126,17 @@ public class WorkCmsController extends BaseController {
 			@RequestParam(required = false, value = "pageSize", defaultValue = "6") int pageSize) throws Exception {
 			//分页数据
 		AjaxJson j = new AjaxJson();
-		if(query.getColumnId().equals("all")){
-			query.setColumnId(null);
-		}
 		query.setPublish("Y");
-		MiniDaoPage<CmsArticle> list =  cmsArticleDao.getAll(query, pageNo, pageSize);
+		
+		MiniDaoPage<CmsArticle> list;
+		if(query.getColumnId().indexOf(",")!=-1){
+			String columnIds=query.getColumnId();
+			query.setColumnIds(columnIds);
+			list =  cmsArticleDao.getPagesSelectMenu(query, pageNo, pageSize);
+		}else{
+			list =  cmsArticleDao.getAll(query, pageNo, pageSize);
+		}
+		
 		j.setObj(list.getResults());
 		return j;
 	}
