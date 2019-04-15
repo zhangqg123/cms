@@ -128,6 +128,7 @@ public class WorkCmsController extends BaseController {
 		if(query.getColumnId().equals("all")){
 			query.setColumnId(null);
 		}
+		query.setPublish("Y");
 		MiniDaoPage<CmsArticle> list =  cmsArticleDao.getAll(query, pageNo, pageSize);
 		j.setObj(list.getResults());
 		return j;
