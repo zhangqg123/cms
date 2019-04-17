@@ -133,6 +133,7 @@ public class WorkCmsController extends BaseController {
 			String columnIds=query.getColumnId();
 			query.setColumnIds(columnIds);
 			list =  cmsArticleDao.getPagesSelectMenu(query, pageNo, pageSize);
+			System.out.println(list.getResults().size());
 		}else{
 			list =  cmsArticleDao.getAll(query, pageNo, pageSize);
 		}
