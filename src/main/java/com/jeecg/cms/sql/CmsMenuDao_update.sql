@@ -36,6 +36,9 @@ SET
 		<#if cmsMenu.appOwner ?exists>
 		   APP_OWNER = :cmsMenu.appOwner,
 		</#if>
+		<#if cmsMenu.owner ?exists>
+		   OWNER = :cmsMenu.owner,
+		</#if>
 		<#if cmsMenu.content ?exists>
 		   content = :cmsMenu.content,
 		</#if>

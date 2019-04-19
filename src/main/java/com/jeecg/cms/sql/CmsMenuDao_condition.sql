@@ -18,6 +18,10 @@
 		    /* IMAGE_HREF */
 			and cm.APP_OWNER like CONCAT('%', :cmsMenu.appOwner ,'%') 
 		</#if>
+		<#if (cmsMenu.owner)?? && cmsMenu.owner ?length gt 0>
+		    /* IMAGE_HREF */
+			and cm.OWNER like CONCAT('%', :cmsMenu.owner ,'%') 
+		</#if>
 		<#if (cmsMenu.imageName)?? && cmsMenu.imageName ?length gt 0>
 		    /* IMAGE_NAME */
 			and cm.IMAGE_NAME like CONCAT('%', :cmsMenu.imageName ,'%') 

@@ -68,13 +68,27 @@ public class CmsArticleController extends BaseController{
 				if(!rolecodes.contains("admin") &&xcxId!=null){
 					query.setXcxId(xcxId);
 				}
-				MiniDaoPage<CmsArticle> list =  cmsArticleDao.getAll(query,pageNo,pageSize);
+				MiniDaoPage<CmsArticle> list = null;
+				MiniDaoPage<CmsMenu> mlist = null;
+				if(rolecodes.contains("admin")||rolecodes.contains("longshi")){
+					list =  cmsArticleDao.getAll(query,pageNo,pageSize);
+					mlist = cmsMenuDao.getAll(new CmsMenu(),1,20);
+				}else{
+					if(rolecodes.contains("lsrole")){
+						String userId=(String) request.getSession().getAttribute("loginUserId");
+						CmsMenu cmsMenu=cmsMenuDao.getMenuByOwner(userId);
+						query.setColumnId(cmsMenu.getId());
+						list =  cmsArticleDao.getAll(query,pageNo,pageSize);
+						mlist = cmsMenuDao.getAll(cmsMenu,1,20);
+					}
+				}
+				List<CmsMenu> menuList = mlist.getResults();
+				
 				VelocityContext velocityContext = new VelocityContext();
 				velocityContext.put("cmsArticle",query);
 				velocityContext.put("pageInfos",SystemTools.convertPaginatedList(list));
 				//获取栏目数据
-				MiniDaoPage<CmsMenu> menuList = cmsMenuDao.getAll();
-				velocityContext.put("menuList",SystemTools.convertPaginatedList(menuList));
+				velocityContext.put("menuList",menuList);
 
 				if(oConvertUtils.isNotEmpty(query.getColumnId())) {
 					velocityContext.put("columnId", query.getColumnId());
@@ -111,10 +125,23 @@ public class CmsArticleController extends BaseController{
 		LhSDeptEntity lhSDept=new LhSDeptEntity();
 		MiniDaoPage<LhSDeptEntity> list = lhSDeptService.getAll(lhSDept, 1, 200); 
 		List<LhSDeptEntity> lhSDeptList = list.getResults();
+		MiniDaoPage<CmsMenu> mlist = null;
+		CmsMenu cmsMenu = new CmsMenu();
+		if(rolecodes.contains("admin")||rolecodes.contains("longshi")){
+			mlist = cmsMenuDao.getAll(cmsMenu,1,20);
+		}else{
+			if(rolecodes.contains("lsrole")){
+				String userId=(String) request.getSession().getAttribute("loginUserId");
+				cmsMenu.setOwner(userId);
+				mlist = cmsMenuDao.getAll(cmsMenu,1,20);
+			}
+		}
+		List<CmsMenu> menuList = mlist.getResults();
 		VelocityContext velocityContext = new VelocityContext();
 		String sessionid = request.getSession().getId();
 		velocityContext.put("sessionid", sessionid);
 		velocityContext.put("deptList",lhSDeptList);
+		velocityContext.put("menuList",menuList);
 		if(!rolecodes.contains("admin") && xcxId!=null){
 			velocityContext.put("xcxId", xcxId);
 		}
@@ -138,6 +165,10 @@ public class CmsArticleController extends BaseController{
 
 		    cmsArticle.setCode(getRandomCode());
 
+			String rolecodes=(String) request.getSession().getAttribute("rolecodes");
+			if(rolecodes.contains("lsrole")){
+				cmsArticle.setPublish("N");
+			}
 		    cmsArticle.setPublishDate(new Date());
 
 		    if(oConvertUtils.isEmpty(cmsArticle.getSummary())) {
@@ -168,12 +199,25 @@ public class CmsArticleController extends BaseController{
 		LhSDeptEntity lhSDept=new LhSDeptEntity();
 		MiniDaoPage<LhSDeptEntity> list = lhSDeptService.getAll(lhSDept, 1, 200); 
 		List<LhSDeptEntity> lhSDeptList = list.getResults();
+		MiniDaoPage<CmsMenu> mlist = null;
+		CmsMenu cmsMenu = new CmsMenu();
+		if(rolecodes.contains("admin")||rolecodes.contains("longshi")){
+			mlist = cmsMenuDao.getAll(cmsMenu,1,20);
+		}else{
+			if(rolecodes.contains("lsrole")){
+				String userId=(String) request.getSession().getAttribute("loginUserId");
+				cmsMenu.setOwner(userId);
+				mlist = cmsMenuDao.getAll(cmsMenu,1,20);
+			}
+		}
+		List<CmsMenu> menuList = mlist.getResults();
 		VelocityContext velocityContext = new VelocityContext();
 		CmsArticle cmsArticle = cmsArticleDao.get(id);
 		velocityContext.put("cmsArticle",cmsArticle);
 		String sessionid = request.getSession().getId();
 		velocityContext.put("sessionid", sessionid);
 		velocityContext.put("deptList",lhSDeptList);
+		velocityContext.put("menuList",menuList);
 		if(!rolecodes.contains("admin") && xcxId!=null){
 			velocityContext.put("xcxId", xcxId);
 		}
@@ -193,6 +237,10 @@ public class CmsArticleController extends BaseController{
 			if(cmsArticle.getCreateBy()==null||cmsArticle.getCreateBy()==""){
 				String userName=(String) request.getSession().getAttribute("loginUserName");
 				cmsArticle.setCreateBy(userName);
+			}
+			String rolecodes=(String) request.getSession().getAttribute("rolecodes");
+			if(rolecodes.contains("lsrole")){
+				cmsArticle.setPublish("N");
 			}
 			cmsArticleDao.update(cmsArticle);
 			j.setMsg("编辑成功");

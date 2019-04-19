@@ -81,5 +81,9 @@ public interface CmsMenuDao{
 	
 	@Sql("SELECT * FROM cms_menu AS cm where cm.APP_OWNER = :xcxId and (cm.PARENT_CODE = '' OR cm.PARENT_CODE IS NULL) order by if(isnull(cm.SERIAL_NUMBER),1,0),cm.SERIAL_NUMBER ")
 	List<CmsMenu> getFirstMenuByAppOwner(@Param("xcxId") String xcxId);
+
+
+	@Sql("select * from cms_menu WHERE owner = :userId")
+	CmsMenu getMenuByOwner(@Param("userId") String userId);
 }
 

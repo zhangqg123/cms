@@ -15,6 +15,7 @@ INSERT  INTO
       ,SERIAL_NUMBER
       ,content
       ,APP_OWNER
+      ,owner
       ) 
 values
       (
@@ -31,5 +32,6 @@ values
       ,:cmsMenu.templateCode
       ,:cmsMenu.serialNumber
       ,:cmsMenu.content
-      ,:cmsMenu.appOwner      
+      ,:cmsMenu.appOwner
+      ,:cmsMenu.owner
       )

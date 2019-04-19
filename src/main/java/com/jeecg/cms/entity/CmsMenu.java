@@ -50,6 +50,7 @@ public class CmsMenu implements Serializable{
 	}
 
 	/**	 *类型	 */	private String type;	/**	 *PARENT_CODE	 */	private String parentCode;	/**	 *HREF	 */	private String href;
+	private String owner;
 		public String getId() {	    return this.id;	}	public void setId(String id) {	    this.id=id;	}	public String getCreateBy() {	    return this.createBy;	}	public void setCreateBy(String createBy) {	    this.createBy=createBy;	}	public Date getCreateDate() {	    return this.createDate;	}	public void setCreateDate(Date createDate) {	    this.createDate=createDate;	}	public String getCreateName() {	    return this.createName;	}	public void setCreateName(String createName) {	    this.createName=createName;	}	public String getImageHref() {	    return this.imageHref;	}	public void setImageHref(String imageHref) {	    this.imageHref=imageHref;	}	public String getImageName() {	    return this.imageName;	}	public void setImageName(String imageName) {	    this.imageName=imageName;	}	public String getName() {	    return this.name;	}	public void setName(String name) {	    this.name=name;	}	public String getType() {	    return this.type;	}	public void setType(String type) {	    this.type=type;	}	public String getParentCode() {	    return this.parentCode;	}	public void setParentCode(String parentCode) {	    this.parentCode=parentCode;	}	public String getHref() {	    return this.href;	}	public void setHref(String href) {	    this.href=href;	}
 	public String getContent() {
 		return content;
@@ -62,6 +63,12 @@ public class CmsMenu implements Serializable{
 	}
 	public void setAppOwner(String appOwner) {
 		this.appOwner = appOwner;
+	}
+	public String getOwner() {
+		return owner;
+	}
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 
 	

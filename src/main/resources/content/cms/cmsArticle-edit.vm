@@ -29,8 +29,13 @@
 						<div class="form-group mno">
 							<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">栏目</label>
 							<div class="col-sm-8">
-								<input type="text" value="$!{cmsArticle.columnId}" id="columnId" readonly class="form-control" onclick="showMenu();"/>
-								<input type="hidden" name="columnId" id="pId" value="$!{cmsArticle.columnId}"/>
+							<!--	<input type="text" value="$!{cmsArticle.columnId}" id="columnId" readonly class="form-control" onclick="showMenu();"/>
+								<input type="hidden" name="columnId" id="pId" value="$!{cmsArticle.columnId}"/>	-->
+										<select name="columnId" id="columnId" class="form-control">
+										 #foreach($menu in $menuList)
+											<option value="${menu.id}" #if($!{cmsArticle.columnId} == ${menu.id})selected#end>--$!{menu.name}</option>
+										 #end
+										</select>
 							</div>
 						</div>
 						
@@ -167,7 +172,7 @@
 <script type="text/javascript" src="$!{basePath}/plug-in-ui/js/Validform_v5.3.2.js"></script> 
 <script type="text/javascript" src="$!{basePath}/plug-in-ui/js/forminit.p3.js"></script> 
 <script type="text/javascript">
-	var IDMark_A = "_a";
+/*	var IDMark_A = "_a";
     
 	function showMenu() {
 		var cityObj = jQuery("#columnId");
@@ -264,6 +269,7 @@
 	    });  
     	zTree.init(jQuery("#treeDemo"), setting, zNodes);
     });
+*/
 </script>
 
 ######################上传部分js#######################################################################

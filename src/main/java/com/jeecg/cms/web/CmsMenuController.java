@@ -1,5 +1,6 @@
 package com.jeecg.cms.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.jeecg.cms.dao.CmsMenuDao;
 import com.jeecg.cms.entity.CmsMenu;
 import com.jeecg.cms.util.SimpleTreeIdBuild;
+import com.jeecg.lhs.entity.User;
+import com.jeecg.lhs.service.LhSAccountService;
 
  /**
  * 描述：</b>CmsMenuController<br>
@@ -35,6 +38,8 @@ import com.jeecg.cms.util.SimpleTreeIdBuild;
 public class CmsMenuController extends BaseController{
 	@Autowired
 	private CmsMenuDao cmsMenuDao;
+	@Autowired
+	private LhSAccountService lhSAccountService;
   
 	/**
 	  * 列表页面
@@ -88,14 +93,32 @@ public class CmsMenuController extends BaseController{
 	public void toAddDialog(HttpServletRequest request,HttpServletResponse response)throws Exception{
 		String rolecodes=(String) request.getSession().getAttribute("rolecodes");
 		String xcxId=(String) request.getSession().getAttribute("departAddress");
+		List<User> users = getUsers(request);
 		VelocityContext velocityContext = new VelocityContext();
 		String sessionid = request.getSession().getId();
 		velocityContext.put("sessionid", sessionid);
 		if(!rolecodes.contains("admin") && xcxId!=null){
 			velocityContext.put("xcxId", xcxId);
 		}
+		velocityContext.put("users", users);
 		String viewName = "cms/cmsMenu-add.vm";
 		ViewVelocity.view(request,response,viewName,velocityContext);
+	}
+	
+	private List<User> getUsers(HttpServletRequest request) {
+		String rolecodes = (String) request.getSession().getAttribute("rolecodes");
+		List<User> users = null;
+		if(rolecodes.contains("admin")||rolecodes.contains("longshi")){
+			users = lhSAccountService.getUsers("lsrole"); 
+		}else{
+			if(rolecodes.contains("zwzx")){
+				String userId=(String) request.getSession().getAttribute("loginUserId");
+				User user=lhSAccountService.getUserById(userId);
+				users=new ArrayList<User>();
+				users.add(user);
+			}
+		}
+		return users;
 	}
 
 	/**
@@ -133,6 +156,7 @@ public class CmsMenuController extends BaseController{
 	public void toEdit(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request) throws Exception{
 		String rolecodes=(String) request.getSession().getAttribute("rolecodes");
 		String xcxId=(String) request.getSession().getAttribute("departAddress");
+		List<User> users = getUsers(request);
 		VelocityContext velocityContext = new VelocityContext();
 		CmsMenu cmsMenu = cmsMenuDao.get(id);
 		velocityContext.put("cmsMenu",cmsMenu);
@@ -141,6 +165,7 @@ public class CmsMenuController extends BaseController{
 		if(!rolecodes.contains("admin") && xcxId!=null){
 			velocityContext.put("xcxId", xcxId);
 		}
+		velocityContext.put("users", users);
 		String viewName = "cms/cmsMenu-edit.vm";
 		ViewVelocity.view(request,response,viewName,velocityContext);
 	}
