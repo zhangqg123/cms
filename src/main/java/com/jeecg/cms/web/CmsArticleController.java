@@ -64,6 +64,10 @@ public class CmsArticleController extends BaseController{
 				if(rolecodes.contains("exam")){
 					query.setCreateBy(userName);
 				}
+				String xcxId=(String) request.getSession().getAttribute("departAddress");
+				if(!rolecodes.contains("admin") &&xcxId!=null){
+					query.setXcxId(xcxId);
+				}
 				MiniDaoPage<CmsArticle> list =  cmsArticleDao.getAll(query,pageNo,pageSize);
 				VelocityContext velocityContext = new VelocityContext();
 				velocityContext.put("cmsArticle",query);
@@ -102,6 +106,8 @@ public class CmsArticleController extends BaseController{
 	 */
 	@RequestMapping(params = "toAdd",method ={RequestMethod.GET, RequestMethod.POST})
 	public void toAddDialog(HttpServletRequest request,HttpServletResponse response)throws Exception{
+		String rolecodes=(String) request.getSession().getAttribute("rolecodes");
+		String xcxId=(String) request.getSession().getAttribute("departAddress");
 		LhSDeptEntity lhSDept=new LhSDeptEntity();
 		MiniDaoPage<LhSDeptEntity> list = lhSDeptService.getAll(lhSDept, 1, 200); 
 		List<LhSDeptEntity> lhSDeptList = list.getResults();
@@ -109,6 +115,9 @@ public class CmsArticleController extends BaseController{
 		String sessionid = request.getSession().getId();
 		velocityContext.put("sessionid", sessionid);
 		velocityContext.put("deptList",lhSDeptList);
+		if(!rolecodes.contains("admin") && xcxId!=null){
+			velocityContext.put("xcxId", xcxId);
+		}
 		String viewName = "cms/cmsArticle-add.vm";
 		ViewVelocity.view(request,response,viewName,velocityContext);
 	}
@@ -154,6 +163,8 @@ public class CmsArticleController extends BaseController{
 	 */
 	@RequestMapping(params="toEdit",method = RequestMethod.GET)
 	public void toEdit(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request) throws Exception{
+		String rolecodes=(String) request.getSession().getAttribute("rolecodes");
+		String xcxId=(String) request.getSession().getAttribute("departAddress");
 		LhSDeptEntity lhSDept=new LhSDeptEntity();
 		MiniDaoPage<LhSDeptEntity> list = lhSDeptService.getAll(lhSDept, 1, 200); 
 		List<LhSDeptEntity> lhSDeptList = list.getResults();
@@ -163,6 +174,9 @@ public class CmsArticleController extends BaseController{
 		String sessionid = request.getSession().getId();
 		velocityContext.put("sessionid", sessionid);
 		velocityContext.put("deptList",lhSDeptList);
+		if(!rolecodes.contains("admin") && xcxId!=null){
+			velocityContext.put("xcxId", xcxId);
+		}
 		String viewName = "cms/cmsArticle-edit.vm";
 		ViewVelocity.view(request,response,viewName,velocityContext);
 	}

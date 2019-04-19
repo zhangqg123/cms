@@ -65,13 +65,17 @@
 									<input type="text" value="0" name="serialNumber" id="serialNumber" class="form-control" />
 								</div>
 							</div>
-							<div class="form-group mno">
-								<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">所属小程序</label>
-								<div class="col-sm-8">
-									<input type="text" value="0" name="appOwner" id="appOwner" class="form-control" />
-								</div>
-							</div>
-							
+							#if($!{xcxId})
+								<input type="hidden" value="$!{xcxId}" name="appOwner" id="appOwner" />
+							#else	
+    							<div class="form-group mno">
+    								<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">所属小程序</label>
+    								<div class="col-sm-8">
+    										<input type="text" value="" name="appOwner" id="appOwner" class="form-control" />
+    									
+    								</div>
+    							</div>
+							#end
 							
 							<div class="form-group mno">
 								<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">描述</label>
@@ -93,7 +97,7 @@
 			</div>
 		</div>
 	</div>
-    <div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+    <div id="menuContent" class="menuContent" style="display:none; position: absolute;z-index: 9999;">
     	<ul id="treeDemo" class="ztree" style="margin-top:0; width:160px;"></ul>
     </div>
 </body>

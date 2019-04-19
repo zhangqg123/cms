@@ -49,6 +49,10 @@ public class CmsMenuController extends BaseController{
 		 	//分页数据
 			String rolecodes=(String) request.getSession().getAttribute("rolecodes");
 			String userName=(String) request.getSession().getAttribute("loginUserName");
+			String xcxId=(String) request.getSession().getAttribute("departAddress");
+			if(!rolecodes.contains("admin") &&xcxId!=null){
+				query.setAppOwner(xcxId);
+			}
 			if(rolecodes.contains("exam")){
 				query.setCreateBy(userName);
 			}
@@ -82,9 +86,14 @@ public class CmsMenuController extends BaseController{
 	 */
 	@RequestMapping(params = "toAdd",method ={RequestMethod.GET, RequestMethod.POST})
 	public void toAddDialog(HttpServletRequest request,HttpServletResponse response)throws Exception{
+		String rolecodes=(String) request.getSession().getAttribute("rolecodes");
+		String xcxId=(String) request.getSession().getAttribute("departAddress");
 		VelocityContext velocityContext = new VelocityContext();
 		String sessionid = request.getSession().getId();
 		velocityContext.put("sessionid", sessionid);
+		if(!rolecodes.contains("admin") && xcxId!=null){
+			velocityContext.put("xcxId", xcxId);
+		}
 		String viewName = "cms/cmsMenu-add.vm";
 		ViewVelocity.view(request,response,viewName,velocityContext);
 	}
@@ -122,11 +131,16 @@ public class CmsMenuController extends BaseController{
 	 */
 	@RequestMapping(params="toEdit",method = RequestMethod.GET)
 	public void toEdit(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request) throws Exception{
+		String rolecodes=(String) request.getSession().getAttribute("rolecodes");
+		String xcxId=(String) request.getSession().getAttribute("departAddress");
 		VelocityContext velocityContext = new VelocityContext();
 		CmsMenu cmsMenu = cmsMenuDao.get(id);
 		velocityContext.put("cmsMenu",cmsMenu);
 		String sessionid = request.getSession().getId();
 		velocityContext.put("sessionid", sessionid);
+		if(!rolecodes.contains("admin") && xcxId!=null){
+			velocityContext.put("xcxId", xcxId);
+		}
 		String viewName = "cms/cmsMenu-edit.vm";
 		ViewVelocity.view(request,response,viewName,velocityContext);
 	}

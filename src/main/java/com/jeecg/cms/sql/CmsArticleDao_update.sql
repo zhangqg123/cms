@@ -54,4 +54,7 @@ SET
 		<#if cmsArticle.deptId ?exists>
 		   dept_id = :cmsArticle.deptId,
 		</#if>
+		<#if cmsArticle.xcxId ?exists>
+		   xcx_id = :cmsArticle.xcxId,
+		</#if>
 WHERE id = :cmsArticle.id

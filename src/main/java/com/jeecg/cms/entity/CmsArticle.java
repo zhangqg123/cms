@@ -43,6 +43,7 @@ public class CmsArticle implements Serializable{
 	private Integer isShow;
 	
 	private String deptId;
+	private String xcxId;
 		public String getId() {	    return this.id;	}	public void setId(String id) {	    this.id=id;	}	public String getTitle() {	    return this.title;	}	public void setTitle(String title) {	    this.title=title;	}	public String getImageHref() {	    return this.imageHref;	}	public void setImageHref(String imageHref) {	    this.imageHref=imageHref;	}	public String getSummary() {	    return this.summary;	}	public void setSummary(String summary) {	    this.summary=summary;	}	public String getContent() {	    return this.content;	}	public void setContent(String content) {	    this.content=content;	}	public String getColumnId() {	    return this.columnId;	}	public void setColumnId(String columnId) {	    this.columnId=columnId;	}	public String getCreateName() {	    return this.createName;	}	public void setCreateName(String createName) {	    this.createName=createName;	}	public String getCreateBy() {	    return this.createBy;	}	public void setCreateBy(String createBy) {	    this.createBy=createBy;	}	public Date getCreateDate() {	    return this.createDate;	}	public void setCreateDate(Date createDate) {	    this.createDate=createDate;	}	public String getPublish() {	    return this.publish;	}	public void setPublish(String publish) {	    this.publish=publish;	}	public Date getPublishDate() {	    return this.publishDate;	}	public void setPublishDate(Date publishDate) {	    this.publishDate=publishDate;	}	public String getAuthor() {	    return this.author;	}	public void setAuthor(String author) {	    this.author=author;	}	public String getLabel() {	    return this.label;	}	public void setLabel(String label) {	    this.label=label;	}
 	public String getCode() {
 		return code;
@@ -79,6 +80,12 @@ public class CmsArticle implements Serializable{
 	}
 	public void setColumnIds(String columnIds) {
 		this.columnIds = columnIds;
+	}
+	public String getXcxId() {
+		return xcxId;
+	}
+	public void setXcxId(String xcxId) {
+		this.xcxId = xcxId;
 	}
 	}
 

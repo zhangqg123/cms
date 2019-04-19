@@ -66,4 +66,8 @@
 		    /* 栏目id */
 			and ca.dept_id like CONCAT('%', :cmsArticle.deptId ,'%') 
 		</#if>
+		<#if (cmsArticle.xcxId)?? && cmsArticle.xcxId ?length gt 0>
+		    /* 栏目id */
+			and ca.xcx_id like CONCAT('%', :cmsArticle.xcxId ,'%') 
+		</#if>
 		
