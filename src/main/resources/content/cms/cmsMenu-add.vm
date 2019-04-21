@@ -88,6 +88,7 @@
 										<div class="col-sm-8">
 									<!--		<input type="text" value="$!{workMenu.owner}" name="owner" id="owner" class="form-control" />	-->
 											<select name="owner" id="owner" class="form-control">
+                                             <option>--选择用户--</option>	
 											 #foreach($user in $users)
 												<option value="${user.id}" >--$!{user.realName}</option>
 											 #end

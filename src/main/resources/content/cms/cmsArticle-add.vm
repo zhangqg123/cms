@@ -34,7 +34,8 @@
 							<div class="col-sm-8">
 							<!--	<input type="text" value="" id="columnId" readonly class="form-control" onclick="showMenu();" datatype="*"/>
 								<input type="hidden" name="columnId" id="pId" />	-->
-											<select name="columnId" id="columnId" class="form-control">
+											<select name="columnId" id="columnId" class="form-control" datatype="*">
+											 <option value="">--请选择--</option>
 											 #foreach($menu in $menuList)
 												<option value="${menu.id}" >--$!{menu.name}</option>
 											 #end
@@ -60,7 +61,7 @@
 							<label for="inputEmail3" class="col-sm-2 control-label" style="text-align:left;">发布范围</label>
 							<div class="col-sm-8">
                                 <select name="deptId" id="deptId" class="form-control">
-                                    <option value="">--请选择--</option>
+                                    <option >--请选择--</option>
 									#foreach($!{dept} in $!{deptList})
                                         <option value="$!{dept.id}" >$!{dept.deptName}</option>
 									#end

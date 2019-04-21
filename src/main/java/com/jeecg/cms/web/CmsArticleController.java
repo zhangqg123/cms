@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jeecg.cms.common.CmsConstant;
 import com.jeecg.cms.dao.CmsArticleDao;
 import com.jeecg.cms.dao.CmsMenuDao;
 import com.jeecg.cms.entity.CmsArticle;
@@ -70,13 +71,17 @@ public class CmsArticleController extends BaseController{
 				}
 				MiniDaoPage<CmsArticle> list = null;
 				MiniDaoPage<CmsMenu> mlist = null;
-				if(rolecodes.contains("admin")||rolecodes.contains("longshi")){
+				CmsMenu cmsMenu = new CmsMenu();
+				if(rolecodes.contains("admin")||rolecodes.contains(CmsConstant.LS_MANAGER_ROLE)){
 					list =  cmsArticleDao.getAll(query,pageNo,pageSize);
-					mlist = cmsMenuDao.getAll(new CmsMenu(),1,20);
+					if(rolecodes.contains(CmsConstant.LS_MANAGER_ROLE)){
+						cmsMenu.setAppOwner(xcxId);
+					}
+					mlist = cmsMenuDao.getAll(cmsMenu,1,20);
 				}else{
-					if(rolecodes.contains("lsrole")){
+					if(rolecodes.contains(CmsConstant.LS_CMS_ROLE)){
 						String userId=(String) request.getSession().getAttribute("loginUserId");
-						CmsMenu cmsMenu=cmsMenuDao.getMenuByOwner(userId);
+						cmsMenu=cmsMenuDao.getMenuByOwner(userId);
 						query.setColumnId(cmsMenu.getId());
 						list =  cmsArticleDao.getAll(query,pageNo,pageSize);
 						mlist = cmsMenuDao.getAll(cmsMenu,1,20);
@@ -127,10 +132,13 @@ public class CmsArticleController extends BaseController{
 		List<LhSDeptEntity> lhSDeptList = list.getResults();
 		MiniDaoPage<CmsMenu> mlist = null;
 		CmsMenu cmsMenu = new CmsMenu();
-		if(rolecodes.contains("admin")||rolecodes.contains("longshi")){
+		if(rolecodes.contains("admin")||rolecodes.contains(CmsConstant.LS_MANAGER_ROLE)){
+			if(rolecodes.contains(CmsConstant.LS_MANAGER_ROLE)){
+				cmsMenu.setAppOwner(xcxId);
+			}
 			mlist = cmsMenuDao.getAll(cmsMenu,1,20);
 		}else{
-			if(rolecodes.contains("lsrole")){
+			if(rolecodes.contains(CmsConstant.LS_CMS_ROLE)){
 				String userId=(String) request.getSession().getAttribute("loginUserId");
 				cmsMenu.setOwner(userId);
 				mlist = cmsMenuDao.getAll(cmsMenu,1,20);
@@ -166,7 +174,7 @@ public class CmsArticleController extends BaseController{
 		    cmsArticle.setCode(getRandomCode());
 
 			String rolecodes=(String) request.getSession().getAttribute("rolecodes");
-			if(rolecodes.contains("lsrole")){
+			if(rolecodes.contains(CmsConstant.LS_CMS_ROLE)){
 				cmsArticle.setPublish("N");
 			}
 		    cmsArticle.setPublishDate(new Date());
@@ -201,10 +209,13 @@ public class CmsArticleController extends BaseController{
 		List<LhSDeptEntity> lhSDeptList = list.getResults();
 		MiniDaoPage<CmsMenu> mlist = null;
 		CmsMenu cmsMenu = new CmsMenu();
-		if(rolecodes.contains("admin")||rolecodes.contains("longshi")){
+		if(rolecodes.contains("admin")||rolecodes.contains(CmsConstant.LS_MANAGER_ROLE)){
+			if(rolecodes.contains(CmsConstant.LS_MANAGER_ROLE)){
+				cmsMenu.setAppOwner(xcxId);
+			}
 			mlist = cmsMenuDao.getAll(cmsMenu,1,20);
 		}else{
-			if(rolecodes.contains("lsrole")){
+			if(rolecodes.contains(CmsConstant.LS_CMS_ROLE)){
 				String userId=(String) request.getSession().getAttribute("loginUserId");
 				cmsMenu.setOwner(userId);
 				mlist = cmsMenuDao.getAll(cmsMenu,1,20);
@@ -239,7 +250,7 @@ public class CmsArticleController extends BaseController{
 				cmsArticle.setCreateBy(userName);
 			}
 			String rolecodes=(String) request.getSession().getAttribute("rolecodes");
-			if(rolecodes.contains("lsrole")){
+			if(rolecodes.contains(CmsConstant.LS_CMS_ROLE)){
 				cmsArticle.setPublish("N");
 			}
 			cmsArticleDao.update(cmsArticle);

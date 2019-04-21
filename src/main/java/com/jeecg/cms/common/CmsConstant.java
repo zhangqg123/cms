@@ -55,4 +55,7 @@ public class CmsConstant {
 	
 	public static final String BASEPATH = "basePath";
 	
+	public static final String LS_MANAGER_ROLE = "longshi";
+	public static final String LS_CMS_ROLE = "lsrole";
+	
 }

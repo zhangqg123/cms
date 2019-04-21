@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jeecg.cms.common.CmsConstant;
 import com.jeecg.cms.dao.CmsMenuDao;
 import com.jeecg.cms.entity.CmsMenu;
 import com.jeecg.cms.util.SimpleTreeIdBuild;
@@ -108,8 +109,8 @@ public class CmsMenuController extends BaseController{
 	private List<User> getUsers(HttpServletRequest request) {
 		String rolecodes = (String) request.getSession().getAttribute("rolecodes");
 		List<User> users = null;
-		if(rolecodes.contains("admin")||rolecodes.contains("longshi")){
-			users = lhSAccountService.getUsers("lsrole"); 
+		if(rolecodes.contains("admin")||rolecodes.contains(CmsConstant.LS_MANAGER_ROLE)){
+			users = lhSAccountService.getUsers(CmsConstant.LS_CMS_ROLE); 
 		}else{
 			if(rolecodes.contains("zwzx")){
 				String userId=(String) request.getSession().getAttribute("loginUserId");
