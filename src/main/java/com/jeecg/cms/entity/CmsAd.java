@@ -30,7 +30,10 @@ public class CmsAd implements Serializable{
 	/**
 	 * 排序
 	 */
-	private Integer sort;	public String getId() {	    return this.id;	}	public void setId(String id) {	    this.id=id;	}	public String getCreateName() {	    return this.createName;	}	public void setCreateName(String createName) {	    this.createName=createName;	}	public String getCreateBy() {	    return this.createBy;	}	public void setCreateBy(String createBy) {	    this.createBy=createBy;	}	public Date getCreateDate() {	    return this.createDate;	}	public void setCreateDate(Date createDate) {	    this.createDate=createDate;	}	public String getTitle() {	    return this.title;	}	public void setTitle(String title) {	    this.title=title;	}	public String getImageHref() {	    return this.imageHref;	}	public void setImageHref(String imageHref) {	    this.imageHref=imageHref;	}
+	private Integer sort;
+	
+	private String xcxId;
+		public String getId() {	    return this.id;	}	public void setId(String id) {	    this.id=id;	}	public String getCreateName() {	    return this.createName;	}	public void setCreateName(String createName) {	    this.createName=createName;	}	public String getCreateBy() {	    return this.createBy;	}	public void setCreateBy(String createBy) {	    this.createBy=createBy;	}	public Date getCreateDate() {	    return this.createDate;	}	public void setCreateDate(Date createDate) {	    this.createDate=createDate;	}	public String getTitle() {	    return this.title;	}	public void setTitle(String title) {	    this.title=title;	}	public String getImageHref() {	    return this.imageHref;	}	public void setImageHref(String imageHref) {	    this.imageHref=imageHref;	}
 	public Integer getIsShow() {
 		return isShow;
 	}
@@ -54,6 +57,12 @@ public class CmsAd implements Serializable{
 	}
 	public void setSort(Integer sort) {
 		this.sort = sort;
+	}
+	public String getXcxId() {
+		return xcxId;
+	}
+	public void setXcxId(String xcxId) {
+		this.xcxId = xcxId;
 	}
 	}
 

@@ -34,3 +34,7 @@
 		    /* 排序 */
 			and ca.sort = :cmsAd.sort
 		</#if>
+		<#if ( cmsAd.xcxId )?? && cmsAd.xcxId ?length gt 0>
+		    /* 排序 */
+			and ca.xcx_id = :cmsAd.xcxId
+		</#if>

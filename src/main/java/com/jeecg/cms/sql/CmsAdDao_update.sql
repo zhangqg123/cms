@@ -27,4 +27,7 @@ SET
 		<#if cmsAd.sort ?exists>
 		   sort = :cmsAd.sort,
 		</#if>
+		<#if cmsAd.xcxId ?exists>
+		   xcx_id = :cmsAd.xcxId,
+		</#if>
 WHERE id = :cmsAd.id

@@ -1,8 +1,10 @@
 package com.jeecg.cms.web;
 
 import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.velocity.VelocityContext;
 import org.jeecgframework.minidao.pojo.MiniDaoPage;
 import org.jeecgframework.p3.core.common.utils.AjaxJson;
@@ -73,11 +75,16 @@ public class CmsAdController extends BaseController{
 	 */
 	@RequestMapping(params = "toAdd",method ={RequestMethod.GET, RequestMethod.POST})
 	public void toAddDialog(HttpServletRequest request,HttpServletResponse response)throws Exception{
-		 VelocityContext velocityContext = new VelocityContext();
-		 String sessionid = request.getSession().getId();
-		 velocityContext.put("sessionid", sessionid);
-		 String viewName = "cms/cmsAd-add.vm";
-		 ViewVelocity.view(request,response,viewName,velocityContext);
+		String rolecodes=(String) request.getSession().getAttribute("rolecodes");
+		String xcxId=(String) request.getSession().getAttribute("departAddress");
+		VelocityContext velocityContext = new VelocityContext();
+		String sessionid = request.getSession().getId();
+		velocityContext.put("sessionid", sessionid);
+		if(!rolecodes.contains("admin") && xcxId!=null){
+			velocityContext.put("xcxId", xcxId);
+		}
+		String viewName = "cms/cmsAd-add.vm";
+		ViewVelocity.view(request,response,viewName,velocityContext);
 	}
 
 	/**
@@ -107,13 +114,18 @@ public class CmsAdController extends BaseController{
 	 */
 	@RequestMapping(params="toEdit",method = RequestMethod.GET)
 	public void toEdit(@RequestParam(required = true, value = "id" ) String id,HttpServletResponse response,HttpServletRequest request) throws Exception{
-			 VelocityContext velocityContext = new VelocityContext();
-			 CmsAd cmsAd = cmsAdDao.get(id);
-			 velocityContext.put("cmsAd",cmsAd);
-			 String sessionid = request.getSession().getId();
-			 velocityContext.put("sessionid", sessionid);
-			 String viewName = "cms/cmsAd-edit.vm";
-			 ViewVelocity.view(request,response,viewName,velocityContext);
+		String rolecodes=(String) request.getSession().getAttribute("rolecodes");
+		String xcxId=(String) request.getSession().getAttribute("departAddress");
+		VelocityContext velocityContext = new VelocityContext();
+		CmsAd cmsAd = cmsAdDao.get(id);
+		velocityContext.put("cmsAd",cmsAd);
+		String sessionid = request.getSession().getId();
+		velocityContext.put("sessionid", sessionid);
+		if(!rolecodes.contains("admin") && xcxId!=null){
+			velocityContext.put("xcxId", xcxId);
+		}
+		String viewName = "cms/cmsAd-edit.vm";
+		ViewVelocity.view(request,response,viewName,velocityContext);
 	}
 
 	/**

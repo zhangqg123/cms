@@ -168,10 +168,16 @@ public class WorkCmsController extends BaseController {
 	 * URL:http://localhost/jeecg-p3-web/api/cms/queryAllAdImages.do
 	 */
 	@RequestMapping("/queryAllAdImages")
-	public @ResponseBody AjaxJson queryAllAdImages() {
+	public @ResponseBody AjaxJson queryAllAdImages(HttpServletRequest request, HttpServletResponse response) {
+		String xcxId = request.getParameter("xcxId");
 		AjaxJson j = new AjaxJson();
+		
 		try {
-			MiniDaoPage<CmsAd> ads = cmsAdDao.getAll();
+			CmsAd cmsAd=new CmsAd();
+			if(xcxId!=null){
+				cmsAd.setXcxId(xcxId);
+			}
+			MiniDaoPage<CmsAd> ads = cmsAdDao.getAll(cmsAd,1,6);
 			j.setObj(SystemTools.convertPaginatedList(ads));
 			j.setSuccess(true);
 		} catch (Exception e) {

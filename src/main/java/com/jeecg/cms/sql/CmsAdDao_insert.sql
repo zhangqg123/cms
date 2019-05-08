@@ -11,6 +11,7 @@ INSERT  INTO
       ,resume                         
       ,link 
       ,sort
+      ,xcx_id
       ) 
 values
       (
@@ -24,4 +25,5 @@ values
       ,:cmsAd.resume                        
       ,:cmsAd.link 
       ,:cmsAd.sort
+      ,:cmsAd.xcxId
       )
