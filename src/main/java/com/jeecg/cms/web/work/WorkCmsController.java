@@ -62,9 +62,10 @@ public class WorkCmsController extends BaseController {
 	@RequestMapping(value="/menu")
 	public @ResponseBody String menu(@ModelAttribute CmsMenu query, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String pid = query.getParentCode();
-		String appId=request.getParameter("xcxId");
-		LhSAccountEntity lhSAccount = lhSAccountService.getByAppId(appId);
-		List<CmsMenu> list = cmsMenuDao.getFirstMenuByUser(lhSAccount.getUserId());
+		String xcxId=request.getParameter("xcxId");
+//		LhSAccountEntity lhSAccount = lhSAccountService.getByAppId(appId);
+//		List<CmsMenu> list = cmsMenuDao.getFirstMenuByUser(lhSAccount.getUserId());
+		List<CmsMenu> list = cmsMenuDao.getFirstMenuByAppOwner(xcxId);
 		// 分页数据
 		return JSONArray.toJSONString(list);
 	}
@@ -129,7 +130,7 @@ public class WorkCmsController extends BaseController {
 		query.setPublish("Y");
 		
 		MiniDaoPage<CmsArticle> list;
-		if(query.getColumnId().indexOf(",")!=-1){
+		if(query.getColumnId()!=null && query.getColumnId().indexOf(",")!=-1){
 			String columnIds=query.getColumnId();
 			query.setColumnIds(columnIds);
 			list =  cmsArticleDao.getPagesSelectMenu(query, pageNo, pageSize);
