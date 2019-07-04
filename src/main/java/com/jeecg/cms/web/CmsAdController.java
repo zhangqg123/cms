@@ -40,21 +40,26 @@ public class CmsAdController extends BaseController{
 	  */
 	@RequestMapping(params = "list",method = {RequestMethod.GET,RequestMethod.POST})
 	public void list(@ModelAttribute CmsAd query,HttpServletRequest request,HttpServletResponse response,
-			@RequestParam(required = false, value = "pageNo", defaultValue = "1") int pageNo,
-			@RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize) throws Exception{
-			try {
-			 	LOG.info(request, " back list");
-			 	//分页数据
-				MiniDaoPage<CmsAd> list =  cmsAdDao.getAll(query,pageNo,pageSize);
-				VelocityContext velocityContext = new VelocityContext();
-				velocityContext.put("cmsAd",query);
-				velocityContext.put("pageInfos",SystemTools.convertPaginatedList(list));
-				String viewName = "cms/cmsAd-list.vm";
-				ViewVelocity.view(request,response,viewName,velocityContext);
-			} catch (Exception e) {
-			e.printStackTrace();
-			}
-}
+		@RequestParam(required = false, value = "pageNo", defaultValue = "1") int pageNo,
+		@RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize) throws Exception{
+		String rolecodes=(String) request.getSession().getAttribute("rolecodes");
+		String xcxId=(String) request.getSession().getAttribute("departAddress");
+		if(!rolecodes.contains("admin") && xcxId!=null){
+			query.setXcxId(xcxId);
+		}
+		try {
+		 	LOG.info(request, " back list");
+		 	//分页数据
+			MiniDaoPage<CmsAd> list =  cmsAdDao.getAll(query,pageNo,pageSize);
+			VelocityContext velocityContext = new VelocityContext();
+			velocityContext.put("cmsAd",query);
+			velocityContext.put("pageInfos",SystemTools.convertPaginatedList(list));
+			String viewName = "cms/cmsAd-list.vm";
+			ViewVelocity.view(request,response,viewName,velocityContext);
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+	}
 
 	 /**
 	  * 详情
